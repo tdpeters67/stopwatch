@@ -5,6 +5,11 @@ const resetBtn = document.querySelector("#resetBtn")
 
 const timerBtns = document.querySelectorAll(".timerBtn")
 
+timerBtns.forEach(timerBtn => {
+    timerBtn.onmousedown = changeRed
+    timerBtn.onmouseup = changeBlack
+})
+
 let startTime = 0
 let elapsedTime = 0
 let currentTime = 0
@@ -41,3 +46,29 @@ resetBtn.addEventListener("click", () =>{
 
 })
 
+function updateTime(){
+    elapsedTime = Date.now() - startTime
+
+    secs = Math.floor((elapsedTime / 1000) % 60 )
+    mins = Math.floor((elapsedTime / (1000 * 60)) % 60 )
+    hrs = Math.floor((elapsedTime / (1000 * 60 * 60)) % 60 )
+
+
+    secs = pad(secs)
+    mins = pad(mins)
+    hrs = pad(hrs)
+
+    timeDisplay.textContent = `${hrs}:${mins}:${secs}`
+
+
+    function pad(unit){
+        return(("0") + unit).length > 2 ? unit : "0" + unit
+    }
+
+}
+
+function changeRed(){
+    this.style.backgroundColor = "red"}
+
+function changeBlack(){
+    this.style.backgroundColor = "#333333"}
